@@ -1,0 +1,52 @@
+[
+    {
+        "firstName": "Amelia",
+        "lastName": "Martin",
+        "membership": 216128
+    },
+    {
+        "firstName": "Jack",
+        "lastName": "Wilson",
+        "membership": 438114
+    },
+    {
+        "firstName": "Olivia",
+        "lastName": "Brown",
+        "membership": 911132
+    },
+    {
+        "firstName": "Olivia",
+        "lastName": "Williams",
+        "membership": 289104
+    },
+    {
+        "firstName": "Jack",
+        "lastName": "Smith",
+        "membership": 195452
+    },
+    {
+        "firstName": "William",
+        "lastName": "Taylor",
+        "membership": 342856
+    },
+    {
+        "firstName": "Amelia",
+        "lastName": "Taylor",
+        "membership": 653252
+    },
+    {
+        "firstName": "Amelia",
+        "lastName": "Thompson",
+        "membership": 810165
+    },
+    {
+        "firstName": "James",
+        "lastName": "Thompson",
+        "membership": 665808
+    },
+    {
+        "firstName": "Oliver",
+        "lastName": "Nguyen",
+        "membership": 766167
+    }
+]

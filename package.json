@@ -1,0 +1,24 @@
+{
+  "name": "weeklychallenge2",
+  "version": "1.0.0",
+  "description": "Weekly Challenge 2",
+  "main": "Console-WeeklyChallenge2.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "generate": "node .\\src\\Generate.js",
+    "consoleapp": "node .\\src\\Console-WeeklyChallenge2.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aileengallacher/WeeklyChallenge2.git"
+  },
+  "author": "Aileen Gallacher",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aileengallacher/WeeklyChallenge2/issues"
+  },
+  "homepage": "https://github.com/aileengallacher/WeeklyChallenge2#readme",
+  "dependencies": {
+    "uuid": "^8.1.0"
+  }
+}
