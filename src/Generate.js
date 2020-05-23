@@ -8,6 +8,6 @@ if (!fs.existsSync(baseFilePath)) {
     fs.mkdirSync(baseFilePath);
 }
 
-let _memberDataSet = new MemberDataReader(path.join(baseFilePath, "Members.json"));
+let _memberDataSet = new MemberDataReader(path.join(baseFilePath, "Members.json"));  // will produce random data executed into this json file name
 
-_memberDataSet.generateRandomMembers();
+_memberDataSet.generateRandomMembers(10);

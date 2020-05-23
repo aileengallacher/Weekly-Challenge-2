@@ -1,8 +1,8 @@
 const readline = require('readline');
 const path = require("path");
-const { MemberDataReader } = require("./DataLayer");
-const { MemberService } = require("./Services");
-// const { Student, Teacher } = require("./Models");
+const MemberDataReader = require("./DataLayer/MemberDataReader");
+const MemberService = require("./Services/MemberService");
+const Member = require("./Models/Member");
 
 const rl = readline.createInterface({
     input: process.stdin,
@@ -24,7 +24,7 @@ async function Program() {
     const baseFilePath = path.join(__dirname, "../", "JSONData");
     const _memberDataReader = new MemberDataReader(path.join(baseFilePath, "Members.json"));
     // const _teacherDataReader = new TeacherDataReader(path.join(baseFilePath, "Teachers.json"));
-    // const _studentService = new StudentService(_studentDataReader, _teacherDataReader);
+    const _memberService = new MemberService(_memberDataReader);
 
     // console.log(_studentDataReader.getArrayFromFile());
     // console.log(_teacherDataReader.getArrayFromFile());
@@ -38,7 +38,7 @@ async function Program() {
         switch (userInput) {
             case "1":
                 let memberFirstName = await askQuestion("Enter First Name: ");
-                let membertLastName = await askQuestion("Enter Last Name: ");
+                let memberLastName = await askQuestion("Enter Last Name: ");
                 let memberNumber = await askQuestion("Enter 6-digit Member Number: ");
                 let newMember = new Member(
                     memberFirstName,

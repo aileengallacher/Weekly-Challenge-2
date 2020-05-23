@@ -1,87 +1,88 @@
 
-const path = require("path");
-
 module.exports = class MemberService {     // executes instructions and updates json file 
-    constructor (memberDataReader) {
+    constructor(memberDataReader) {
         this.memberDataReader = memberDataReader;
     }
 
-    getMember(membershipNumber) {
-        return this.MemberDataReader.getMember(membershipNumber);  // refers to getMember method in data reader and will retrieve member
+    getMember(membership) {
+        return this.memberDataReader.getMember(membership);  // refers to getMember method in data reader and will retrieve member
     }
 
-    deleteTeacher(id) {
-        let teacher = this.getTeacher(id);
-        if (!teacher) {
-            console.log("Error: No Matching Teacher Found");
-        } else {
-            this.TeacherDataReader.deleteTeacher(id);
-        }
-    }
+    // deleteMember(membership) {
+    //     let member = this.getMember(membership);
+    //     if (!member) {
+    //         console.log("Error: No Matching Member Found");
+    //     } else {
+    //         this.MemberDataReader.deleteMember(membership);
+    //     }
+    // }
 
-    updateTeacher(teacher) {
-        let dataTeacher = this.getTeacher(teacher.id);
-        if (!dataTeacher) {
-            console.log("Error: No Matching Teacher Found");
-        } else if (this.validateTeacher(teacher)) {
-            this.teacherDataReader.updateTeacher(teacher);
-        } else {
-            console.log("Error: Teacher object was invalid");
-        }
-    }
+    // updateMember(member) {
+    //     let dataMember = this.getMember(member.id);
+    //     if (!dataMember) {
+    //         console.log("Error: No Matching Teacher Found");
+    //     } else if (this.validateMember(member)) {
+    //         this.memberDataReader.updateMember(member);
+    //     } else {
+    //         console.log("Error: Teacher object was invalid");
+    //     }
+    // }
 
-    addTeacher(members) {
+    addMember(member) {
         let dataMember = this.getMember(member.membershipNumber);
-        if (dataMember) {
-            console.log("Error: Member already exists with this membership number. " +member.membershipNumber);
+        console.log(`whatis the member number ${member.membership}`)
+        console.log(`what is the value of ${dataMember}`)
+        if (!dataMember) {  // i think i need to put a "find.() in here to validate"
+            console.log(`Error: Member already exists with this membership number." + ${member.membershipNumber}`);
         } else if (this.validateMember(member)) {
+            console.log(`are you validating?? datamember value is ${dataMember}`)
             this.memberDataReader.addMember(member);
         } else {
             console.log("Error: Teacher object was invalid //  change this error message.");
         }
     }
 
-    searchByName(searchTerm) {
-        let teacherData = this.teacherDataReader.getArrayFromFile();
-        let matchingNames = [];
-        for (let i = 0; i < teacherData.length; i++) {
-            const teacher = teacherData[i];
-            let teacherFullName = `${teacher.firstName} ${teacher.lastName}`.toLowerCase();
-            if(teacherFullName.includes(searchTerm.toLowerCase())) {
-                matchingNames.push(teacher);
-            }
-        }
-        return matchingNames;
-
-
-        // return this.studentDataReader.getArrayFromFile()
-        //     .filter(student => `${student.firstName} ${student.lastName}`.toLowerCase().includes(searchTerm));
-    }
-
-    // doesTeacherExist(id) {
-    //     let teacher = this.teacherDataReader.getTeacher(id);
-    //     if (teacher) {
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
-    // }
-
-    // validateStudent(student) {
-    //     if (!this.doesTeacherExist(student.teacherId)) {
-    //         console.log("Error: Could not find matching teacher for given teacherId")
-    //         return false;
-    //     }
-    //     if (isNaN(student.age)) {
-    //         return false;
-    //     }
-    //     for (let i = 0; i < student.grades.length; i++) {
-    //         const grade = student.grades[i];
-    //         if (isNaN(grade)) {
-    //             console.log("Error: One or more of the entered grades was invalid")
-    //             return false;
+    // searchByName(searchTerm) {
+    //     let memberData = this.memberDataReader.getArrayFromFile();
+    //     let matchingNames = [];
+    //     for (let i = 0; i < memberData.length; i++) {
+    //         const member = memberData[i];
+    //         let memberFullName = `${member.firstName} ${member.lastName}`.toLowerCase();
+    //         if (memberFullName.includes(searchTerm.toLowerCase())) {
+    //             matchingNames.push(teacher);
     //         }
     //     }
-    //     return true;
+    //     return matchingNames;
+
+
+    // return this.studentDataReader.getArrayFromFile()
+    //     .filter(student => `${student.firstName} ${student.lastName}`.toLowerCase().includes(searchTerm));
     // }
+
+    doesMemberExist(membership) {
+        let member = this.memberDataReader.getMember(membership);
+        if (member) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    validateMember(member) {
+        if (!this.doesMemberExist(member.membershipNumber)) {
+            console.log("Error: Could not find matching membership number")
+            return false;
+        }
+        // if (isNaN(student.age)) {
+        //     return false;
+        // }
+        // for (let i = 0; i < student.grades.length; i++) {
+        //     const grade = student.grades[i];
+        //     if (isNaN(grade)) {
+        //         console.log("Error: One or more of the entered grades was invalid")
+        //         return false;
+        //     }
+        // }
+        return true;
+    }
 }
