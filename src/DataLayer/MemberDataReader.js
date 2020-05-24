@@ -10,7 +10,7 @@ module.exports = class MemberDataReader {   // Data Reader reads and writes to t
         return JSON.parse(fs.readFileSync(this.fileName).toString()).map(obj => new Member(
             obj.firstName,
             obj.lastName,
-            obj.membershipNumber,
+            obj.membership,
         ));
     }
 
@@ -18,23 +18,23 @@ module.exports = class MemberDataReader {   // Data Reader reads and writes to t
         fs.writeFileSync(this.fileName, JSON.stringify(arrayValue));
     }
 
-    getMember(membership) {       
+    getMember(membership) {     
         return this.getArrayFromFile().find(m => m.membership == membership);
     }
 
-    // updateMember(member) {                       // this will update member details if membership nbr matches the entered membership nbr
-    //     this.writeArrayToFile(this.getArrayFromFile().map(m => {
-    //         if (m.membershipNumber == member.membershipNumber) {
-    //             return member;
-    //         } else {
-    //             return m;
-    //         }
-    //     }));
-    // }
+    updateMember(member) {                       // this will update member details if membership nbr matches the entered membership nbr
+       // this.writeArrayToFile(this.getArrayFromFile().map(m => {
+            if (m.membershipNumber == member.membershipNumber) {
+                return member;
+            } else {
+                return m;
+            }
+     //   }));
+    }
 
-    // deleteMember(membership) {
-    //     this.writeArrayToFile(this.getArrayFromFile().filter(m => m.membership != membership));
-    // }
+    deleteMember(membership) {
+        this.writeArrayToFile(this.getArrayFromFile().filter(m => m.membership != membership));
+    }
 
     addMember(member) {
         this.writeArrayToFile(this.getArrayFromFile().concat([member])); 

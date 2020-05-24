@@ -1,28 +1,27 @@
-const Person = require("./Person");
-const random = require("../Common/Random")
+const random = require("../Common/Random");
 
-module.exports = class Member extends Person {
-    constructor(firstName, lastName, membership) { 
-        super(firstName,lastName)
-        this.membership = membership;
-        //this.points;     ** play around with this idea later 1pt for every dollar$ spent
+module.exports = class Member {
+    constructor(firstName, lastName, membership) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.membership = membership
     }
 
     getInfo() {
         return `${this.firstName} ${this.lastName} ${this.membership}`;
     }
 
-    static generateRandomMembers(numberOfMembers) {
-        return super.generateRandomPeople(numberOfMembers).map(member => new Member(
-            member.firstName,
-            member.lastName,
-            this.generateRandomNumbers(),
-        ));
-    }
-    static generateRandomNumbers() {
-        let memberNumber = random.getRandomMemberNumber(1);
-        return memberNumber;
-        // return getRandomMemberNumber = max => Math.floor((Math.floor(100000 + Math.random() * 900000)));
-
+    static generateRandomPeople(numberOfPeople) {
+        let randomPeople = [];
+        for (let i = 0; i < numberOfPeople; i++) {
+            // Generate a random person
+            let randomPerson = new Member(
+                random.getRandomGivenName(),      // will create a randomly generated given name
+                random.getRandomFamilyName(),     // will create a randomly generated family name
+               random.getRandomMemberNumber(42) + 18   // will create a randomly generated number to be used as an ID number
+            );
+            randomPeople.push(randomPerson);
+        }
+        return randomPeople;
     }
 }
