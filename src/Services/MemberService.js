@@ -5,7 +5,6 @@ module.exports = class MemberService {     // executes instructions and updates 
     }
 
     getMember(membership) {
-        console.log(`${this.memberDataReader.getMember()}`);
         return this.memberDataReader.getMember(membership);  // refers to getMember method in data reader and will retrieve member
     }
 
@@ -31,19 +30,19 @@ module.exports = class MemberService {     // executes instructions and updates 
     }
 
     addMember(member) {
-        let dataStudent = this.getMember(member.membership);
-        if (dataStudent) {
-            console.log(`Error: Student Already Found With id: + ${member.membership}`);
-        } else if (this.validateMember(member)) {
-            console.log("are you here after validating membership?");
+        let dataMember = this.getMember(member.membership);  // will check getMember data if a membership number exists and set dataMember to true (data found) or false
+        if (dataMember) {              // if dataMember exists, it will show what was found and give error message  
+            console.log(dataMember);
+            console.log(`Error: Member already found with this membership number: ${member.membership}`);
+        } else if (this.validateMember(member)) {   // if no matching membership is found, continue to addMember function in memberdatareader
             this.memberDataReader.addMember(member);
-        } else {
-            console.log("Error: Student object was invalid");
+        } else {                       // if details entered1
+            console.log("Error: Member details invalid.");
         }
     }
 
     searchByName(searchTerm) {
-        let memberData = this.memberDataReader.getArrayFromFile();
+        let memberData = this.memberDataReader.getMembersFromFile();getMembersFromFile
         let matchingDetails = [];
         for (let i = 0; i < memberData.length; i++) {
             const member = memberData[i];
@@ -63,7 +62,7 @@ module.exports = class MemberService {     // executes instructions and updates 
 
 
     validateMember(membership) {
-        let memberData = this.memberDataReader.getArrayFromFile();
+        let memberData = this.memberDataReader.getMembersFromFile(membership);
         if (memberData) {
             return true;
         } else {

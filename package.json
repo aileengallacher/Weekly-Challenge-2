@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/aileengallacher/WeeklyChallenge2#readme",
   "dependencies": {
+    "init": "^0.1.2",
     "uuid": "^8.1.0"
   }
 }

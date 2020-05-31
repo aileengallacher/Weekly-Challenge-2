@@ -1,32 +1,40 @@
-const readline = require('readline');
+//const readline = require('readline');
+const { askQuestion } = require("./Common/askQuestion")
 const path = require("path");
 const MemberDataReader = require("./DataLayer/MemberDataReader");
 const MemberService = require("./Services/MemberService");
 const Member = require("./Models/Member");
+const baseFilePath = path.join(__dirname, "../", "JSONData");
+const _memberDataReader = new MemberDataReader(path.join(baseFilePath, "Members.json"));
+const _memberService = new MemberService(_memberDataReader);
 
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-});
-
-function askQuestion(question) {
-    let answer;
-
-    return new Promise((resolve, reject) => {
-        rl.question(question, (ans) => {
-            resolve(ans);
-        })
-    });
+async function addMember() {
+    let memberFirstName = await askQuestion("Enter First Name: ");
+    let memberLastName = await askQuestion("Enter Last Name: ");
+    let memberNumber = await askQuestion("Enter 6-digit Member Number: ");
+    memberNumber = parseInt(memberNumber);
+    if (memberNumber.toString().length < 6 | memberNumber.toString().length > 6) {  // .length only works for an array
+        console.log("ERROR: Membership number entered is invalid. Must be 6 characters.");
+    } else {
+        let newMember = new Member(
+            memberFirstName,
+            memberLastName,
+            memberNumber
+        );
+        _memberService.addMember(newMember);
+    }
 }
 
 
-async function Program() {
-    const baseFilePath = path.join(__dirname, "../", "JSONData");
-    const _memberDataReader = new MemberDataReader(path.join(baseFilePath, "Members.json"));
-    const _memberService = new MemberService(_memberDataReader);
+
+
+async function MainMenu() {
 
     let shouldLoop = true;
     while (shouldLoop) {
+        console.log("\t\t * * * * * * * * * * * * * * * * * * * * * *")
+        console.log("\t\t Welcome to the Madison Threads Member Database \n");
+        console.log("\t\t * * * * * * * * * * * * * * * * * * * * * *")
         console.log("[1] Add a member");
         console.log("[2] Search a member");
         console.log("[3] Update member details");
@@ -35,16 +43,7 @@ async function Program() {
         let userInput = await askQuestion("Select an option from above: ");
         switch (userInput) {
             case "1":     // CREATE: add a member
-                let memberFirstName = await askQuestion("Enter First Name: ");
-                let memberLastName = await askQuestion("Enter Last Name: ");
-                let memberNumber = await askQuestion("Enter 6-digit Member Number: ");
-                let newMember = new Member(
-                    memberFirstName,
-                    memberLastName,
-                    memberNumber
-                );
-                _memberService.addMember(newMember);
-                console.log("New member has been created.");
+                newMember = await addMember()
                 break;
             case "2":     // READ: search a member
                 let searchTerm = await askQuestion("Enter member details to search: ");
@@ -65,10 +64,10 @@ async function Program() {
                 switch (userInput) {
                     case "1":     // Change first name
                         let member = await askQuestion("Enter new First Name: ");
-                        return 
-                        
-                      //  let matchMember = _memberService.updateMember(member);
-                     //   console.log(`What is matchMember: ${matchMember}`);
+                        return
+
+                        //  let matchMember = _memberService.updateMember(member);
+                        //   console.log(`What is matchMember: ${matchMember}`);
 
 
                         // let memberLastName = await askQuestion("Enter Last Name: ");
@@ -97,6 +96,6 @@ async function Program() {
     }
 }
 
-Program().then(() => {
+MainMenu().then(() => {
     process.exit(0);
 });
